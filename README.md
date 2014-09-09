@@ -40,6 +40,8 @@ If you need to inherit another controller from the ParentController, you have to
   // Step 4
   ng.store('ParentController' , ParentController );
   
+  ng.module(appName).controller( 'ParentController' , ParentController );
+  
   
 } ( angular , 'YOUR_APP')
 
