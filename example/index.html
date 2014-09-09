@@ -1,0 +1,34 @@
+<!doctype html>
+<html ng-app="Demo">
+<head>
+    <meta charset="utf-8" />
+
+    <title>Controller Inheritance</title>
+</head>
+<body>
+
+    <div ng-controller="ChildController">
+        <div ng-init="save()"> </div>
+    </div>
+
+    <div ng-controller="MultiChildController">
+        <div ng-init="doB()"> </div>
+    </div>
+<!-- Load AngularJS from the CDN. -->
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0-rc.0/angular.min.js"> </script>
+
+<script type="text/javascript" src="app.js"> </script>
+
+<script type="text/javascript" src="../src/angular-inheritance.js"> </script>
+
+<script type="text/javascript" src="parentController.js"> </script>
+<script type="text/javascript" src="parentAController.js"> </script>
+<script type="text/javascript" src="parentBController.js"> </script>
+<script type="text/javascript" src="childController.js"> </script>
+<script type="text/javascript" src="multiChildController.js"> </script>
+
+<script type="text/javascript" src="childService.js"> </script>
+
+
+</body>
+</html>
