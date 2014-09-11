@@ -144,7 +144,16 @@
      * @returns The component constructor
      */
     BaseController.prototype.super = function( componentName , componentDependencies ) {
-        return ng.store( componentName).apply( this , componentDependencies );
+        return ng.store( componentName ).apply( this , componentDependencies );
+    };
+
+    /**
+     *
+     * @param componentName The component name
+     * @returns The prototype of the component ( which eases methods overriding )
+     */
+    BaseController.prototype.parent = function( componentName ) {
+        return ng.store( componentName ).prototype;
     };
 
     ng.store( 'BaseController' , BaseController );
@@ -161,7 +170,16 @@
      * @returns The component constructor
      */
     BaseService.prototype.super = function( componentName , componentDependencies ) {
-        ng.store( componentName).apply( this , componentDependencies );
+        ng.store( componentName ).apply( this , componentDependencies );
+    };
+
+    /**
+     *
+     * @param componentName The component name
+     * @returns The prototype of the component ( which eases methods overriding )
+     */
+    BaseService.prototype.parent = function( componentName ) {
+        return ng.store( componentName ).prototype;
     };
 
     ng.store( 'BaseService' , BaseService );
