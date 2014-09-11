@@ -187,7 +187,7 @@
     /**
      * @constructor     Base service
      */
-    function BaseFactory( $scope ) {}
+    function BaseFactory( $scope ) { }
 
     /**
      * @param componentName The component name
