@@ -136,6 +136,10 @@
         if( ! this.scope ) {
             this.scope = $scope;
         }
+
+        if( ! this.log ) {
+            this.log = ng.injector(['ng']).get('$log');
+        }
     }
 
     /**
@@ -162,7 +166,11 @@
     /**
      * @constructor     Base service
      */
-    function BaseService( $scope ) {}
+    function BaseService() {
+        if( ! this.log ) {
+            this.log = ng.injector(['ng']).get('$log');
+        }
+    }
 
     /**
      * @param componentName The component name
@@ -187,7 +195,11 @@
     /**
      * @constructor     Base service
      */
-    function BaseFactory( $scope ) { }
+    function BaseFactory() {
+        if( ! this.log ) {
+            this.log = ng.injector(['ng']).get('$log');
+        }
+    }
 
     /**
      * @param componentName The component name
