@@ -5,9 +5,19 @@
         this.super( 'BaseController' ).apply( [ $scope ] );
         this.service = UpdateService;
         this.q = ng.injector(['ng']).get('$q');
+
+        this.itemToUpdate( {} );
+        this.updatedItem( {} );
     }
 
     ng.inherit().controller( UpdateController , 'BaseController' );
+
+    /**
+     * Actions performed just before the update operation
+     */
+     ReadController.prototype.doBeforeUpdate = function() {
+        // Nothing to do by default;
+     }
 
     /**
      * @returns true if the create operation can be performed
@@ -17,10 +27,11 @@
     /**
      * @returns the promise resolved after the update operation and the call to doAfterXXXUpdate function
      */
-    UpdateController.prototype.create =  function() {
+    UpdateController.prototype.update =  function() {
         var defer = this.q.defer();
         if( this.canUpdate() ) {
-            this.service.create( this.itemToUpdate() )
+            this.doBeforeUpdate();
+            this.service.update( this.itemToUpdate() )
                 .then( function( result ) {
                     this.doAfterSuccessUpdate( result );
                     defer.resolve( result );
@@ -37,7 +48,7 @@
      * @param result    The result of the creation operation
      */
     UpdateController.prototype.doAfterSuccessUpdate = function( result ) {
-        this.createdItem( this.itemToUpdate() );
+        this.updatedItem( this.itemToUpdate() );
     };
 
     /**
@@ -45,7 +56,7 @@
      * @param result    The result of the creation operation
      */
     UpdateController.prototype.doAfterFailUpdate = function(  error ) {
-        this.createdItem( {} );
+        this.updatedItem( {} );
     };
 
     /**
@@ -63,9 +74,9 @@
      * @param item  The created item to set
      * @returns the value of the createdItem scope variable
      */
-    UpdateController.prototype.createdItem = function( item ) {
-        if( item ) this.scope.createdItem = item;
-        else return this.scope.createdItem;
+    UpdateController.prototype.updatedItem = function( item ) {
+        if( item ) this.scope.updatedItem = item;
+        else return this.scope.updatedItem;
     };
 
     ng.store( 'UpdateController' , UpdateController );

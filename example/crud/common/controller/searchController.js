@@ -5,6 +5,8 @@
         this.super( 'BaseController' ).apply( [ $scope ] );
         this.service = SearchService;
         this.q = ng.injector(['ng']).get('$q');
+
+        this.searchedItems( [] );
     }
 
     ng.inherit().controller( SearchController , 'BaseController' );
@@ -20,6 +22,7 @@
     SearchController.prototype.search =  function() {
         var defer = this.q.defer();
         if( this.canSearch() ) {
+            this.doBeforeSearch();
             this.service.search( this.filter )
                 .then( function( result ) {
                     this.doAfterSuccessSearch( result );
@@ -31,6 +34,13 @@
             return defer.promise;
         }
     };
+
+    /**
+     * Actions performed just before the search operation
+     */
+     ReadController.prototype.doBeforeSearch = function() {
+        // Nothing to do by default;
+     }
 
     /**
      * Actions performed after the search operation has been successfully performed

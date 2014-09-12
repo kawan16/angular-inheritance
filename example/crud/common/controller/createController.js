@@ -5,6 +5,9 @@
         this.super( 'BaseController' ).apply( [ $scope ] );
         this.service = CreateService;
         this.q = ng.injector(['ng']).get('$q');
+
+        this.itemToCreate( {} );
+        this.createdItem( {} );
     }
 
     ng.inherit().controller( CreateController , 'BaseController' );
@@ -20,6 +23,7 @@
     CreateController.prototype.create =  function() {
         var defer = this.q.defer();
         if( this.canCreate() ) {
+            this.doBeforeCreate();
             this.service.create( this.itemToCreate() )
                 .then( function( result ) {
                     this.doAfterSuccessCreate( result );
@@ -33,11 +37,19 @@
     };
 
     /**
+     * Actions performed just before the creation operation
+     */
+    CreateController.prototype.doBeforeCreate = function() {
+        // Nothing to do by default;
+    }
+
+    /**
      * Actions performed after the create operation has been successfully performed
      * @param result    The result of the creation operation
      */
     CreateController.prototype.doAfterSuccessCreate = function( result ) {
         this.createdItem( this.itemToCreate() );
+        this.itemToCreate( {} );
     };
 
     /**

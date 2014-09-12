@@ -10,6 +10,13 @@
     ng.inherit().controller( DeleteController , 'BaseController' );
 
     /**
+     * Actions performed just before the delete operation
+     */
+     ReadController.prototype.doBeforeDelete = function() {
+        // Nothing to do by default;
+     }
+
+    /**
      * @returns true if the delete operation can be performed
      */
     DeleteController.prototype.canDelete = function() { return true;}
@@ -20,6 +27,7 @@
     DeleteController.prototype.delete =  function() {
         var defer = this.q.defer();
         if( this.canDelete() ) {
+            this.doBeforeDelete();
             this.service.delete( this.itemToDelete() )
                 .then( function( result ) {
                     this.doAfterSuccessDelete( result );

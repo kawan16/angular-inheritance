@@ -5,6 +5,8 @@
         this.super( 'BaseController' ).apply( [ $scope ] );
         this.service = ReadService;
         this.q = ng.injector(['ng']).get('$q');
+
+        this.readItem( {} );
     }
 
     ng.inherit().controller( ReadController , 'BaseController' );
@@ -20,6 +22,7 @@
     ReadController.prototype.read =  function() {
         var defer = this.q.defer();
         if( this.canRead() ) {
+            this.doBeforeRead();
             this.service.read( this.itemId )
                 .then( function( result ) {
                     this.doAfterSuccessRead( result );
@@ -31,6 +34,13 @@
             return defer.promise;
         }
     };
+
+    /**
+     * Actions performed just before the read operation
+     */
+     ReadController.prototype.doBeforeRead = function() {
+        // Nothing to do by default;
+     }
 
     /**
      * Actions performed after the read operation has been successfully performed
