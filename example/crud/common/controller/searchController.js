@@ -28,7 +28,7 @@
                     this.doAfterSuccessSearch( result );
                     defer.resolve( result );
                 }, function( error ) {
-                    this.doAfterFailSearch( error );
+                    this.doAfterFailSearch( error  );
                     defer.reject( error );
                 });
             return defer.promise;
