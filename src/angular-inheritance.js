@@ -93,9 +93,7 @@
          */
         function extend( Child, Component ) {
             for( var property in Component.prototype ) {
-                //if( Component.hasOwnProperty( property ) ) {
-                    Child.prototype[ property ] = Component.prototype[ property ];
-                //}
+                Child.prototype[ property ] = Component.prototype[ property ];
             }
             Child.prototype.constructor = Child;
         }
