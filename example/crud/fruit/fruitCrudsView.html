@@ -1,13 +1,15 @@
-<div ng-controller="fruitCrudsController">
-    <!-- ALERTS -->
-    <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+<div ng-controller="FruitCrudsController">
 
+    <br/>
+    <br/>
 
     <!-- SEARCH / CREATE-->
     <section>
-        <input type="text" ng-model="filter" class="search-query pull-left" placeholder="Search">
-        <button ng-click="open()" class="btn btn-warn pull-right"><i class="icon-white icon-plus"></i> Add new user</button>
+        <input type="text" ng-model="filter" class="search-query pull-left" placeholder="Search a fruit">
+        <button class="btn btn-default pull-left" ng-click="search()"> Search</button>
+        <button ng-click="openModal('createFruitModal')" class="btn btn-success pull-right"><i class="icon-white icon-plus"></i> Create fruit </button>
     </section>
+    <br/>
     <br/>
 
     <!-- LIST OF FRUITS -->
@@ -20,21 +22,45 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="(key, fruit) in fruits | orderByPriority | filter:search | orderBy:'name'">
-            <td data-title="'Name'">
-                <span ng-if="!fruit.$edit">{{fruit.name}}</span>
-                <div ng-if="fruit.$edit"><input class="form-control" type="text" ng-model="fruit.name" /></div>
+        <tr ng-repeat="fruit in searchedItems | orderBy:'name'">
+            <td data-title="'Name'" width="60">
+                <span>{{fruit.name}}</span>
             </td>
             <td data-title="'Text'" width="330">
-                <span ng-if="!fruit.$edit">{{fruit.designation}}</span>
-                <div ng-if="fruit.$edit"><input class="form-control" type="text" ng-model="fruit.designation" /></div>
+                <span>{{fruit.designation}}</span>
             </td>
-            <td data-title="'Actions'" width="200">
-                <a ng-if="!fruit.$edit" href="" class="btn btn-primary btn-xs" ng-click="open(fruit.$id)">Edit</a>
-                <a ng-if="!fruit.$destroy" ng-click="removeRecord(fruit.$id)" class="btn btn-default btn-xs">Delete</a>
-                <a ng-if="fruit.$edit" href="" class="btn btn-primary btn-xs" ng-click="save()">Save</a>
+            <td data-title="'Actions'" width="100">
+                <a class="btn btn-primary btn-xs">Edit</a>
+                <a class="btn btn-danger btn-xs">Delete</a>
             </td>
         </tr>
         </tbody>
     </table>
+
+    <script type="text/ng-template" id="createFruitModal">
+        <div class="modal-header">
+            <h3>User Form</h3>
+        </div>
+        <div class="modal-body">
+            <!--<alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>-->
+            <form name="userForm" class="form-horizontal">
+                <div class="control-group">
+                    <label class="control-label" for="name">Name</label>
+                    <div class="controls">
+                        <input id="name" name="name" ng-model="user.name" type="text" placeholder="Name" class="input-xlarge" required=""  ng-class="{error: user.name.$invalid && !user.name.$pristine}"/>
+                    </div>
+                </div>
+
+
+
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button ng-click="save()" ng-if="user.id" ng-disabled="user.$invalid || !user.tnc" class="btn btn-primary"><i class="icon-white icon-plus"></i> Save</button>
+            <button ng-click="add()" type="submit" ng-if="!user.id" ng-disabled="user.$invalid || !user.tnc" class="btn btn-primary"><i class="icon-white icon-plus"></i> Add</button>
+            <button ng-click="closeModal()" class="btn">Cancel</button>
+        </div>
+    </script>
+
+
 </div>
