@@ -2,12 +2,13 @@
 ( function( ng ) {
 
     function UpdateController( $scope , UpdateService ) {
-        this.super( 'BaseController' ).apply( [ $scope ] );
+        this.super( 'BaseController' , [ $scope ] );
         this.service = UpdateService;
         this.q = ng.injector(['ng']).get('$q');
 
         this.itemToUpdate( {} );
         this.updatedItem( {} );
+        this.scope.update = ng.bind( this , this.update );
     }
 
     ng.inherit().controller( UpdateController , 'BaseController' );
@@ -15,9 +16,9 @@
     /**
      * Actions performed just before the update operation
      */
-     ReadController.prototype.doBeforeUpdate = function() {
+    UpdateController.prototype.doBeforeUpdate = function() {
         // Nothing to do by default;
-     }
+    };
 
     /**
      * @returns true if the create operation can be performed
@@ -28,15 +29,16 @@
      * @returns the promise resolved after the update operation and the call to doAfterXXXUpdate function
      */
     UpdateController.prototype.update =  function() {
+        var that = this;
         var defer = this.q.defer();
         if( this.canUpdate() ) {
             this.doBeforeUpdate();
             this.service.update( this.itemToUpdate() )
                 .then( function( result ) {
-                    this.doAfterSuccessUpdate( result );
+                    that.doAfterSuccessUpdate( result );
                     defer.resolve( result );
                 }, function( error ) {
-                    this.doAfterFailUpdate( error );
+                    that.doAfterFailUpdate( error );
                     defer.reject( error );
                 });
             return defer.promise;

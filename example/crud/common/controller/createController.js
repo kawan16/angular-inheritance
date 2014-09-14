@@ -2,12 +2,13 @@
 ( function( ng ) {
 
     function CreateController( $scope , CreateService ) {
-        this.super( 'BaseController' ).apply( [ $scope ] );
+        this.super( 'BaseController', [ $scope ] );
         this.service = CreateService;
         this.q = ng.injector(['ng']).get('$q');
 
         this.itemToCreate( {} );
         this.createdItem( {} );
+        this.scope.create = ng.bind( this , this.create );
     }
 
     ng.inherit().controller( CreateController , 'BaseController' );
@@ -21,20 +22,22 @@
      * @returns the promise resolved after the creation operation and the call to doAfterXXXCreate function
      */
     CreateController.prototype.create =  function() {
+        var that = this;
         var defer = this.q.defer();
         if( this.canCreate() ) {
             this.doBeforeCreate();
             this.service.create( this.itemToCreate() )
                 .then( function( result ) {
-                    this.doAfterSuccessCreate( result );
+                    that.doAfterSuccessCreate( result );
                     defer.resolve( result );
                 }, function( error ) {
-                    this.doAfterFailCreate( error );
+                    that.doAfterFailCreate( error );
                      defer.reject( error );
                 });
             return defer.promise;
         }
     };
+
 
     /**
      * Actions performed just before the creation operation

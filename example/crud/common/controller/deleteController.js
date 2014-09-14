@@ -2,9 +2,11 @@
 ( function( ng ) {
 
     function DeleteController( $scope , DeleteService ) {
-        this.super( 'BaseController' ).apply( [ $scope ] );
+        this.super( 'BaseController' , [ $scope ] );
         this.service = DeleteService;
         this.q = ng.injector(['ng']).get('$q');
+
+        this.scope.delete = ng.bind( this , this.delete );
     }
 
     ng.inherit().controller( DeleteController , 'BaseController' );
@@ -12,7 +14,7 @@
     /**
      * Actions performed just before the delete operation
      */
-     ReadController.prototype.doBeforeDelete = function() {
+     DeleteController.prototype.doBeforeDelete = function() {
         // Nothing to do by default;
      }
 
@@ -25,15 +27,16 @@
      * @returns the promise resolved after the delete operation and the call to doAfterXXXDelete function
      */
     DeleteController.prototype.delete =  function() {
+        var that = this;
         var defer = this.q.defer();
         if( this.canDelete() ) {
             this.doBeforeDelete();
             this.service.delete( this.itemToDelete() )
                 .then( function( result ) {
-                    this.doAfterSuccessDelete( result );
+                    that.doAfterSuccessDelete( result );
                     defer.resolve( result );
                 }, function( error ) {
-                    this.doAfterFailDelete( error );
+                    that.doAfterFailDelete( error );
                     defer.reject( error );
                 });
             return defer.promise;

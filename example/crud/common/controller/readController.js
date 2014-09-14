@@ -2,11 +2,12 @@
 ( function( ng ) {
 
     function ReadController( $scope , ReadService ) {
-        this.super( 'BaseController' ).apply( [ $scope ] );
+        this.super( 'BaseController' , [ $scope ] );
         this.service = ReadService;
         this.q = ng.injector(['ng']).get('$q');
 
         this.readItem( {} );
+        this.scope.read = ng.bind( this , this.read );
     }
 
     ng.inherit().controller( ReadController , 'BaseController' );
@@ -20,15 +21,16 @@
      * @returns the promise resolved after the read operation and the call to doAfterXXXRead function
      */
     ReadController.prototype.read =  function() {
+        var that = this;
         var defer = this.q.defer();
         if( this.canRead() ) {
             this.doBeforeRead();
             this.service.read( this.itemId )
                 .then( function( result ) {
-                    this.doAfterSuccessRead( result );
+                    that.doAfterSuccessRead( result );
                     defer.resolve( result );
                 }, function( error ) {
-                    this.doAfterFailRead( error );
+                    that.doAfterFailRead( error );
                     defer.reject( error );
                 });
             return defer.promise;
