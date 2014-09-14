@@ -2,11 +2,11 @@
 ( function( ng ) {
 
     function CrudsController( $scope , CrudsService ) {
-        this.super( 'CreateController' ).apply( arguments );
-        this.super( 'ReadController' ).apply( arguments );
-        this.super( 'UpdateController' ).apply( arguments );
-        this.super( 'DeleteController' ).apply( arguments );
-        this.super( 'SearchController' ).apply( arguments );
+        this.super( 'CreateController',  arguments );
+        this.super( 'ReadController' , arguments );
+        this.super( 'UpdateController' , arguments );
+        this.super( 'DeleteController' , arguments );
+        this.super( 'SearchController' , arguments );
     }
 
     ng.expand().controller( CrudsController ,
