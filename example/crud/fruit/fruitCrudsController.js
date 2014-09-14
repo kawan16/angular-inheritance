@@ -1,3 +1,8 @@
+/**
+ *
+ * Author : Karl Devooght
+ * Date :   13/09/2014
+ */
 
 ( function( ng ) {
 
@@ -7,6 +12,4 @@
 
     ng.inherit().controller( FruitCrudsController , 'CrudsController');
 
-    ng.store( 'CrudsController' , CrudsController );
-
-}) ( angular , 'Demo' );
+}) ( angular );

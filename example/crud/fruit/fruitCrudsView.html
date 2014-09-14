@@ -1,0 +1,40 @@
+<div ng-controller="fruitCrudsController">
+    <!-- ALERTS -->
+    <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+
+
+    <!-- SEARCH / CREATE-->
+    <section>
+        <input type="text" ng-model="filter" class="search-query pull-left" placeholder="Search">
+        <button ng-click="open()" class="btn btn-warn pull-right"><i class="icon-white icon-plus"></i> Add new user</button>
+    </section>
+    <br/>
+
+    <!-- LIST OF FRUITS -->
+    <table ng-table="tableParams" class="table">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="(key, fruit) in fruits | orderByPriority | filter:search | orderBy:'name'">
+            <td data-title="'Name'">
+                <span ng-if="!fruit.$edit">{{fruit.name}}</span>
+                <div ng-if="fruit.$edit"><input class="form-control" type="text" ng-model="fruit.name" /></div>
+            </td>
+            <td data-title="'Text'" width="330">
+                <span ng-if="!fruit.$edit">{{fruit.designation}}</span>
+                <div ng-if="fruit.$edit"><input class="form-control" type="text" ng-model="fruit.designation" /></div>
+            </td>
+            <td data-title="'Actions'" width="200">
+                <a ng-if="!fruit.$edit" href="" class="btn btn-primary btn-xs" ng-click="open(fruit.$id)">Edit</a>
+                <a ng-if="!fruit.$destroy" ng-click="removeRecord(fruit.$id)" class="btn btn-default btn-xs">Delete</a>
+                <a ng-if="fruit.$edit" href="" class="btn btn-primary btn-xs" ng-click="save()">Save</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

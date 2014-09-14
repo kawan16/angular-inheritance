@@ -63,7 +63,7 @@
         function inherit(childConstructor, parentName) {
             var parentConstructor = cache.get( parentName );
             if( ! parentConstructor)
-                throw 'The name does not refer to any constructor. Did you forget to store it ?';
+                throw 'The name' + parentName + ' does not refer to any constructor. Did you forget to store it ?';
             extend(childConstructor, parentConstructor);
         }
 
