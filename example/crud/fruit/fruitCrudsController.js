@@ -6,15 +6,18 @@
 
 ( function( ng , appName ) {
 
-    function FruitCrudsController( $scope , FruitCrudsService , $modal ) {
+    function FruitCrudsController( $scope , FruitCrudsService  ) {
         this.super( 'CrudsController' ,  [ $scope, FruitCrudsService ]);
-        this.super( 'ModalController' ,  [ $scope, $modal ]);
+        this.super( 'ModalController' ,  [ $scope ]);
 
-        console.log('fruit cruds open modal ' + this.openModal);
+
 
         // Initial search
         this.filter( "" );
         this.search();
+
+
+        angular.element('#testModal').modal('show');
     }
 
     ng.expand().controller( FruitCrudsController , [ 'CrudsController' , 'ModalController' ] );

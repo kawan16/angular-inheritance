@@ -1,0 +1,40 @@
+
+
+<div id='modalCreate' class="modal fade" >
+    <div class="modal-dialog" ng-style="dialogStyle">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Create Fruit </h3>
+            </div>
+            <div class="modal-body">
+                <form name="fruitForm" class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="name">Name</label>
+                        <div class="col-sm-10">
+                            <input id="name"
+                                   type="text"
+                                   ng-model="itemToCreate.name"
+                                   placeholder="Name"
+                                   class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="description">Description</label>
+                        <div class="col-sm-10">
+                            <textarea id="description"
+                                      type="text"
+                                      ng-model="itemToCreate.designation"
+                                      placeholder="Description"
+                                      class="form-control"/>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button ng-click="create();closeModal('#modalCreate');search()" class="btn btn-success"> <i class="icon-white icon-plus"></i> Save</button>
+                <button ng-click="cancelCreate();closeModal('#modalCreate')" class="btn btn-cancel">Cancel</button>
+        </div>
+    </div>
+
+    </div>
+</div>
