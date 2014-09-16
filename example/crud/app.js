@@ -1,6 +1,6 @@
 
 
 ( function( ng ) {
-    ng.module( "CrudDemo", ['ui.bootstrap'] );
+    ng.module( "CrudDemo", [] );
 }) ( angular );
 

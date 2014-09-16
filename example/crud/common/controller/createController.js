@@ -9,6 +9,7 @@
         this.itemToCreate( {} );
         this.createdItem( {} );
         this.scope.create = ng.bind( this , this.create );
+        this.scope.cancelCreate = ng.bind( this , this.cancelCreate );
     }
 
     ng.inherit().controller( CreateController , 'BaseController' );
@@ -61,6 +62,10 @@
      */
     CreateController.prototype.doAfterFailCreate = function(  error ) {
         this.createdItem( {} );
+    };
+
+    CreateController.prototype.cancelCreate = function() {
+        this.itemToCreate( {} );
     };
 
     /**
