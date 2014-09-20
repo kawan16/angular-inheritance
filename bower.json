@@ -8,8 +8,8 @@
   "ignore": [
     "src/*", "src",
     "example/*", "example",
-    "./.bower.json", "./.bowerrc",
-    "./git*",
+    "./gitattributes", "./gitignore",
+    "Gruntfile.js",
     "README.md",
     "package.json"
   ],
