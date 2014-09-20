@@ -6,8 +6,10 @@
     "./dist/angular-inheritance.min.js"
   ],
   "ignore": [
-    "src/*",
-    "example/*",
+    "src/*", "src",
+    "example/*", "example",
+    "./.bower.json", "./.bowerrc",
+    "./git*",
     "README.md",
     "package.json"
   ],
