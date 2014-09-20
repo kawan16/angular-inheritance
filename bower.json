@@ -8,7 +8,7 @@
   "ignore": [
     "src/*", "src",
     "example/*", "example",
-    "./gitattributes", "./gitignore",
+    ".gitattributes", ".gitignore",
     "Gruntfile.js",
     "README.md",
     "package.json"
