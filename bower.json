@@ -1,15 +1,19 @@
 {
-    "name": "angular-inheritance",
-    "version": "0.0.1",
-    "main": [
-        "./dist/angular-inheritance.js",
-        "./dist/angular-inheritance.min.js"
-    ],
-    "dependencies": {
-        "angular": "latest"
-    },
-    "resolutions": {
-        "angular": "~1"
-    }
-
+  "name": "angular-inheritance",
+  "version": "0.0.1",
+  "main": [
+    "./dist/angular-inheritance.js",
+    "./dist/angular-inheritance.min.js"
+  ],
+  "ignore": [
+    "src/*",
+    "example/*",
+    ".*",
+    "*.js",
+    "README.md",
+    "package.json"
+  ],
+  "dependencies": {
+    "angular": "latest"
+  }
 }
