@@ -1,0 +1,14 @@
+{
+    "name": "angular-inheritance",
+    "version": "0.0.1",
+    "main": [
+        "./dist/angular-inheritance.js",
+        "./dist/angular-inheritance.min.js"
+    ],
+    "dependencies": {
+        "angular": "latest"
+    },
+    "resolutions": {
+        "angular": "~1"
+    }
+}
