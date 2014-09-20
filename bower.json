@@ -9,7 +9,7 @@
     "src/*", "src",
     "example/*", "example",
     ".gitattributes", ".gitignore",
-    "Gruntfile.js",
+    "Gruntfile.js", ".bowerrc", "bower.json",
     "README.md",
     "package.json"
   ],
