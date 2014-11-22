@@ -107,5 +107,9 @@ Some exceptions may arise if you declare randomly your JS files in your index HT
 
 ## Examples
 
-You can find examples of how Angular Inheritanc works in the ```example``` folder. Particularly, we propose an abstract CRUDS model of controller and service upon which child controller can base  
+You can find examples of how Angular Inheritanc works in the ```example``` folder. Particularly, we propose an abstract CRUDS model of controller and service upon which child controller can base. When your Web Application has to complete CRUDS operations on N types of object, the CRUDS example can inspire you to save time and code lines.
+
+## Release history
+
+
 
