@@ -1,7 +1,7 @@
 angular-inheritance
 ===================
 
-This Angular library provides tools to define inheritance and quasi multi-inheritance relationships for controllers, services and factories.
+This Angular library provides tools to define inheritance and quasi multi-inheritance relationships for controllers and  services.
 
 Base components
 --------------------
