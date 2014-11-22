@@ -7,13 +7,10 @@
         this.scope.doA = ng.bind( this , this.doA );
     }
 
-    ng.inherit().controller(ParentAController,'BaseController');
+    ng.inherit( 'ParentAController' , ParentAController ).from( 'BaseController' );
 
     ParentAController.prototype.doA = function() {
         this.log.info('Level 0 - Parent A Controller is doing...');
     };
-
-    ng.store( 'ParentAController' , ParentAController  );
-
 
 }) ( angular );

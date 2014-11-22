@@ -12,7 +12,7 @@
         this.scope.cancelCreate = ng.bind( this , this.cancelCreate );
     }
 
-    ng.inherit().controller( CreateController , 'BaseController' );
+    ng.inherit( 'CreateController' , CreateController ).from( 'BaseController' );
 
     /**
      * @returns true if the create operation can be performed
@@ -45,7 +45,7 @@
      */
     CreateController.prototype.doBeforeCreate = function() {
         // Nothing to do by default;
-    }
+    };
 
     /**
      * Actions performed after the create operation has been successfully performed
@@ -88,6 +88,5 @@
         else return this.scope.createdItem;
     };
 
-    ng.store( 'CreateController' , CreateController );
 
 }) ( angular );

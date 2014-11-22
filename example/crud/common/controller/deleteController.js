@@ -9,7 +9,7 @@
         this.scope.delete = ng.bind( this , this.delete );
     }
 
-    ng.inherit().controller( DeleteController , 'BaseController' );
+    ng.inherit( 'DeleteController' , DeleteController ).from( 'BaseController' );
 
     /**
      * Actions performed just before the delete operation
@@ -79,6 +79,5 @@
         else return this.scope.deletedItem;
     };
 
-    ng.store( 'DeleteController' , DeleteController );
 
 }) ( angular );

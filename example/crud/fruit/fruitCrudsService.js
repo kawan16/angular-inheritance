@@ -23,7 +23,7 @@
         ];
     }
 
-    ng.inherit().service( FruitCrudsService , 'CrudsService');
+    ng.inherit( 'FruitCrudsService' , FruitCrudsService).from( 'CrudsService' );
 
     // Overriding
 

@@ -10,17 +10,14 @@
         this.super( 'CrudsController' ,  [ $scope, FruitCrudsService ]);
         this.super( 'ModalController' ,  [ $scope ]);
 
-
-
         // Initial search
         this.filter( "" );
         this.search();
 
-
         angular.element('#testModal').modal('show');
     }
 
-    ng.expand().controller( FruitCrudsController , [ 'CrudsController' , 'ModalController' ] );
+    ng.expand( 'FruitCrudsController' , FruitCrudsController).from( [ 'CrudsController' , 'ModalController' ] );
 
 
     // Override

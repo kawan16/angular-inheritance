@@ -6,7 +6,7 @@
         this.q = ng.injector(['ng']).get('$q');
     }
 
-    ng.inherit().service( CrudsService , 'BaseService');
+    ng.inherit( 'CrudsService' , CrudsService ).from( 'BaseService' );
 
     CrudsService.prototype.create = function( itemToCreate ) {
         this.log.info('CrudsService is creating an item ' );
@@ -43,6 +43,5 @@
         return defer.promise;
     };
 
-    ng.store( 'CrudsService' , CrudsService );
 
 }) (angular);

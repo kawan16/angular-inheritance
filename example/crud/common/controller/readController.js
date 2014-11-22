@@ -10,7 +10,7 @@
         this.scope.read = ng.bind( this , this.read );
     }
 
-    ng.inherit().controller( ReadController , 'BaseController' );
+    ng.inherit( 'ReadController' , ReadController ).from( 'BaseController' );
 
     /**
      * @returns true if the read operation can be performed
@@ -80,6 +80,5 @@
         else return this.scope.readItem;
     };
 
-    ng.store( 'ReadController' , ReadController );
 
 }) ( angular );

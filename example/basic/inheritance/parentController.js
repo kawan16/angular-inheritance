@@ -8,7 +8,7 @@
         this.bind();
     }
 
-    ng.inherit().controller(ParentController,'BaseController');
+    ng.inherit( 'ParentController' , ParentController ).from( 'BaseController' );
 
     ParentController.prototype.save = function() {
         this.log.info('Level 0 - Parent Controller is saving data...');
@@ -27,7 +27,5 @@
     ParentController.prototype.bind = function() {
         this.scope.save = ng.bind( this , this.save );
     };
-
-    ng.store( 'ParentController' , ParentController  );
 
 }) ( angular );

@@ -10,7 +10,7 @@
         this.scope.search = ng.bind( this , this.search );
     }
 
-    ng.inherit().controller( SearchController , 'BaseController' );
+    ng.inherit( 'SearchController' , SearchController ).from( 'BaseController' );
 
     /**
      * @returns true if the search operation can be performed
@@ -77,14 +77,9 @@
      * @returns the value of the searchItem scope variable
      */
     SearchController.prototype.searchedItems = function( items ) {
-        console.log('searcheditems');
-        if( items ) {
-
-            this.scope.searchedItems = items;
-        }
+        if( items ) { this.scope.searchedItems = items;}
         else return this.scope.searchedItems;
     };
 
-    ng.store( 'SearchController' , SearchController );
 
 }) ( angular );

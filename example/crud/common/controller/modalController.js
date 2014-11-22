@@ -8,7 +8,7 @@
         this.scope.closeModal = ng.bind( this , this.closeModal );
     }
 
-    ng.inherit().controller( ModalController ,'BaseController');
+    ng.inherit( 'ModalController' , ModalController ).from( 'BaseController' );
 
     ModalController.prototype.openModal = function( modalElementId ) {
         console.log('open modal');
@@ -19,6 +19,5 @@
         ng.element( modalElementId).modal('hide');
     };
 
-    ng.store( 'ModalController' , ModalController );
 
 })( angular );

@@ -9,10 +9,11 @@
         this.super( 'SearchController' , arguments );
     }
 
-    ng.expand().controller( CrudsController ,
-        [ 'CreateController' ,  'ReadController' , 'UpdateController' ,
-          'DeleteController' , 'SearchController' ] );
+    ng.expand( 'CrudsController' , CrudsController)
+        .from(
+            [ 'CreateController' ,  'ReadController' , 'UpdateController' ,
+            'DeleteController' , 'SearchController' ]
+        );
 
-    ng.store( 'CrudsController' , CrudsController );
 
 }) ( angular , 'Demo' );

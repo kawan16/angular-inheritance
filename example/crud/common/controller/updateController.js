@@ -11,7 +11,7 @@
         this.scope.update = ng.bind( this , this.update );
     }
 
-    ng.inherit().controller( UpdateController , 'BaseController' );
+    ng.inherit( 'UpdateController' , UpdateController ).from( 'BaseController' );
 
     /**
      * Actions performed just before the update operation
@@ -81,6 +81,5 @@
         else return this.scope.updatedItem;
     };
 
-    ng.store( 'UpdateController' , UpdateController );
 
 }) ( angular );
