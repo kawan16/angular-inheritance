@@ -15,4 +15,11 @@ To install Storycode, you just need to get the JS files in the ```dist``` folder
 
 ## Features
 
+### Controller Inheritance
+
+### Service Inheritance
+
+### Controller Multi-Inheritance
+
+### Service Multi-Inheritance
 
