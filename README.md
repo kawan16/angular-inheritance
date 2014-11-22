@@ -1,57 +1,18 @@
-angular-inheritance
+Angular Inheritance
 ===================
 
-This Angular library provides tools to define inheritance and quasi multi-inheritance relationships for controllers and  services.
+A problem that may occur when one develop a web application based on AngularJS (1.X) is the fact that you cannot really abstract some common controller or service behavior. Besides, you often have to deal with the problem of controller granularity: do I have to create several sub-controllers ( but in this way, you have to cope with some scope inheritance issues) or do I have to define only one main controller ( but getting an awful big piece of code included in the controller function ).  
 
-Base components
---------------------
+Anugular Inheritance is a library which proposes a third alternative by giving you the possibility to define your controllers and services in an inheritance way. It allows to take advantage of both worlds by introducing inheritance and multi-inheritance-like process in your Angular code.
 
-Three base functions are defined ( BaseController , BaseService and BaseFactory ) upon which inheritance relations will start from ( althrough this is optional ).
+## Installation
 
-Inheritance
---------------------
+To install Storycode, you just need to get the JS files in the ```dist``` folder. A bower versio is coming soon. Then, put them in your ```lib``` folder and add in your index file:
 
-Angular inheritance use the classic pattern for Javascript inheritance. Suppose a simple controller called ParentController which inherits from the BaseController. 
-
-First, we will called the base constructor into the ParentController which is a constructor ( Step 1 ). We use the super function defined in the BaseController.
-
-Then, we just need to call the angular.inherit().controller function with the ParentController function and the name of the BaseController. That's it !
-
-If we want to add new controller methods, we just need to add them after the inheritance assignment ( step 3 ).
-
-If you need to inherit another controller from the ParentController, you have to store the ParentController function in order to be available for future inheritance relations ( step 4 ).
-
-```
-( function( ng , appName ) {
-
-  
-  function ParentController($scope) {
-      // Step 1
-      this.super('BaseController', arguments );
-  }
-  
-  // Step 2
-  ng.inherit().controller( ParentController , 'BaseController' );
-  
-  
-  // Step 3
-  ParentController.prototype.doSomethingNew = function() {}
-  
-  // Step 4
-  ng.store('ParentController' , ParentController );
-  
-  ng.module(appName).controller( 'ParentController' , ParentController );
-  
-  
-} ( angular , 'YOUR_APP')
-
+```html
+  <script type="text/javascript" src="<LIB_PATH>/angular-inheritance.js"> </script>
 ```
 
-
-
-
-
-Quasi Multi-Inheritance
---------------------
+## Features
 
 
