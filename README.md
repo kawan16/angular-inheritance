@@ -111,5 +111,5 @@ You can find examples of how Angular Inheritanc works in the ```example``` folde
 
 ## Release history
 
-
+0.0.1 Initial stable version
 
