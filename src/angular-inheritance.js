@@ -1,8 +1,9 @@
 
 /*
- * Angular inheritance
+ * Angular Inheritance
  *
- * @author Karl Devooght
+ * Copyright (c) 2014 Karl Devooght
+ * Licensed under the MIT license.
  */
 
 ( function( ng  ) {
@@ -19,26 +20,15 @@
         cache = $cacheFactory('angular-inheritance');
     });
 
-    /*
-     * Get / Set a constructor functions
-     */
-     ng.store = function( constructorName , constructor )  {
-        if( ! constructor ) {
-            return cache.get( constructorName );
-        }
-        else {
-            cache.put( constructorName , constructor );
-        }
-     };
-
-
     ////// INHERITANCE /////
 
     /*
      * Angular method that returns tools in order to describe inheritance relationship
      * for controllers, service and factories
+     * @param   The name of the child component
+     * @param   The child component constructor
      */
-    ng.inherit = function( ) {
+    ng.inherit = function( childName , childConstructor ) {
 
         /*
          * Extends the Child constructor with the Parent constructor
@@ -47,6 +37,9 @@
         function extend(Child, Parent) {
             Child.prototype = inheritPrototype(Parent.prototype);
             Child.prototype.constructor = Child;
+            if( ! Child.$parent ) { Child.$parent = []; }
+            Child.$parent.push( Parent );
+            if( Parent.$parent ) { Child.$parent.concat( Parent.$parent ); }
         }
 
         /* Returns an "empty-constructor" object with the specified prototype */
@@ -60,22 +53,27 @@
          * Look for the stored parent constructor identified with parentName
          * and extends the child constructor with the parent constructor
          */
-        function inherit(childConstructor, parentName) {
+        function inherit( childConstructor , parentName ) {
             var parentConstructor = cache.get( parentName );
-            if( ! parentConstructor)
-                throw 'The name' + parentName + ' does not refer to any constructor. Did you forget to store it ?';
-            extend(childConstructor, parentConstructor);
+            if( parentConstructor) {
+                extend(childConstructor, parentConstructor);
+            }
+            else {
+                throw 'The name' + parentName + ' does not refer to any constructor. Did you forget to define/include it ?';
+            }
         }
 
+        // Suspend the current script about ms milliseconds
+        function delay( ms ){
+            var end = new Date().getTime() + ms;
+            while ( end > new Date().getTime() );
+        };
+
         return {
-            controller: function (childController, parentControllerName) {
-                inherit(childController, parentControllerName);
-            },
-            service: function (childService, parentServiceName) {
-                inherit(childService, parentServiceName);
-            },
-            factory: function (childFactory, parentFactoryName) {
-                inherit(childFactory, parentFactoryName);
+            from: function ( parentName ) {
+                inherit( childConstructor , parentName );
+                // Store the child component for future inheritance
+                cache.put( childName , childConstructor );
             }
         };
     };
@@ -84,9 +82,11 @@
 
     /*
      * Angular method that returns tools in order to describe quasi multi-inheritance relationship
-     * for controllers, service and factories
+     * for controllers and service
+     * @param   The name of the child component
+     * @param   The child component constructor
      */
-    ng.expand = function( ) {
+    ng.expand = function(  childName , childConstructor  ) {
 
         /*
          * Extends the Child constructor with the Component constructor
@@ -96,6 +96,9 @@
                 Child.prototype[ property ] = Component.prototype[ property ];
             }
             Child.prototype.constructor = Child;
+            if( ! Child.$parent ) { Child.$parent = []; }
+            Child.$parent.push( Component );
+            if( Component.$parent ) { Child.$parent.concat( Component.$parent ); }
         }
 
         /*
@@ -104,22 +107,18 @@
          */
         function inherit( childConstructor, componentNameArray  ) {
             angular.forEach( componentNameArray , function( componentName ) {
-                var componentConstructor = ng.store( componentName );
+                var componentConstructor = cache.get( componentName );
                 if( ! componentConstructor)
-                    throw 'The name does not refer to any constructor. Did you forget to store it ?';
+                    throw 'The name ' + componentName + ' does not refer to any constructor. Did you forget to define/include it ?';
                 extend( childConstructor , componentConstructor );
             });
         }
 
         return {
-            controller: function( childController , componentControllerNameArray ) {
-                inherit( childController , componentControllerNameArray );
-            },
-            service: function( childService, componentServiceNameArray ) {
-                inherit( childService, componentServiceNameArray );
-            },
-            factory: function( childFactory, componentFactoryNameArray ) {
-                inherit( childFactory, componentFactoryNameArray );
+            from: function( componentNameArray ) {
+                inherit( childConstructor , componentNameArray );
+                // Store the child component for future inheritance
+                cache.put( childName , childConstructor );
             }
         };
     };
@@ -131,13 +130,8 @@
      * @constructor     Base controller
      */
     function BaseController( $scope ) {
-        if( ! this.scope ) {
-            this.scope = $scope;
-        }
-
-        if( ! this.log ) {
-            this.log = ng.injector(['ng']).get('$log');
-        }
+        if( ! this.scope ) { this.scope = $scope; }
+        if( ! this.log ) { this.log = ng.injector(['ng']).get('$log'); }
     }
 
     /**
@@ -146,7 +140,7 @@
      * @returns The component constructor
      */
     BaseController.prototype.super = function( componentName , componentDependencies ) {
-        return ng.store( componentName ).apply( this , componentDependencies );
+        cache.get( componentName ).apply( this , componentDependencies );
     };
 
     /**
@@ -155,19 +149,19 @@
      * @returns The prototype of the component ( which eases methods overriding )
      */
     BaseController.prototype.parent = function( componentName ) {
-        return ng.store( componentName ).prototype;
+        var cachedComponent = cache.get( componentName );
+        var component = this.constructor.$parent [ this.constructor.$parent.indexOf( cachedComponent ) ];
+        return component.prototype;
     };
 
-    ng.store( 'BaseController' , BaseController );
+    cache.put( 'BaseController' , BaseController );
 
 
     /**
      * @constructor     Base service
      */
     function BaseService() {
-        if( ! this.log ) {
-            this.log = ng.injector(['ng']).get('$log');
-        }
+        if( ! this.log ) { this.log = ng.injector(['ng']).get('$log');}
     }
 
     /**
@@ -176,7 +170,7 @@
      * @returns The component constructor
      */
     BaseService.prototype.super = function( componentName , componentDependencies ) {
-        ng.store( componentName ).apply( this , componentDependencies );
+        cache.get( componentName ).apply( this , componentDependencies );
     };
 
     /**
@@ -185,29 +179,9 @@
      * @returns The prototype of the component ( which eases methods overriding )
      */
     BaseService.prototype.parent = function( componentName ) {
-        return ng.store( componentName ).prototype;
+        return cache.get( componentName ).prototype;
     };
 
-    ng.store( 'BaseService' , BaseService );
-
-    /**
-     * @constructor     Base service
-     */
-    function BaseFactory() {
-        if( ! this.log ) {
-            this.log = ng.injector(['ng']).get('$log');
-        }
-    }
-
-    /**
-     * @param componentName The component name
-     * @param componentDependencies     The arguments used to call the component constructor
-     * @returns The component constructor
-     */
-    BaseFactory.prototype.super = function( componentName , componentDependencies ) {
-        ng.store( componentName ).apply( this , componentDependencies );
-    };
-
-    ng.store( 'BaseFactory' , BaseFactory );
+    cache.put( 'BaseService' , BaseService );
 
 }) ( angular );
