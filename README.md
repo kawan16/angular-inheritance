@@ -97,7 +97,7 @@ In order to have a clean way to override a controller / service method, you can 
 
 ## Precautions
 
-Some exceptions may arise if you declare randomly your JS files in your index HTML file. The rule is to declare controllers and services based on their inheritance level. A parent controller must be declare before its children. 
+Some exceptions may arise if you declare randomly your JS files in your index HTML file. The rule is to declare controllers and services based on their inheritance level. A parent controller must be declared before its children. 
 
 ```html
   <script type="text/javascript" src="<SRC_PATH>/parentController.js"> </script>
