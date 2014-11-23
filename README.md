@@ -40,7 +40,7 @@ Simple inheritance relationship is quite simple to express. First, we define our
 Then, just declare the inheritance relation such as:
 
 ```js
-   angular.inherit( "ChildController" , ChildControllerFn ).from('BaseController');
+   angular.inherit( "ChildController" , ChildController ).from('BaseController');
 ```
 
 Then, if you need to override some methods in a prototypal way, just do it:
@@ -54,7 +54,7 @@ Then, if you need to override some methods in a prototypal way, just do it:
 Service inheritance proceeds in the way with: 
 
 ```js
-   angular.inherit( "ChildService" , ChildControllerFn ).from('BaseService');
+   angular.inherit( "ChildService" , ChildController ).from('BaseService');
 ```
 
 ### Controller Multi-Inheritance
@@ -70,7 +70,7 @@ If you need your controller to inherit from others controllers, you just have to
 And for service multi-inheritance: 
 
 ```js
-   angular.expand( "ChildService" , ChildControllerFn ).from( [ 'Parent1Service' , 'Parent2Service' , 'Parent3Service' ]);
+   angular.expand( "ChildService" , ChildController ).from( [ 'Parent1Service' , 'Parent2Service' , 'Parent3Service' ]);
 ```
 
 ### Super method
