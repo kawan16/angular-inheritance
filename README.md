@@ -15,7 +15,7 @@ To install Storycode, you just need to get the JS files in the ```dist``` folder
 
 ## Features
 
-Using Angular Inheritance means thinking Angular controller and service in a JS prototypal way as the following sections suggest. 
+Using Angular Inheritance means thinking Angular controller and service in a JS prototypal way as the following sections suggest.
 
 ### Base Controller and Service
 
@@ -23,7 +23,7 @@ Angular inheritance comes with base controller and service from which children i
 
 ```js
    function BaseController( $scope ) { /* Some code */}
-   function ServiceController( ) { /* Some code */}
+   function BaseService( ) { /* Some code */}
 ```
 
 ### Controller Inheritance
@@ -35,7 +35,7 @@ Simple inheritance relationship is quite simple to express. First, we define our
       this.someAttribute = 'Some value';
       this.someMethod = function() { return 'Some method' };
    }
-   
+
 ```
 Then, just declare the inheritance relation such as:
 
@@ -51,7 +51,7 @@ Then, if you need to override some methods in a prototypal way, just do it:
 
 ### Service Inheritance
 
-Service inheritance proceeds in the way with: 
+Service inheritance proceeds in the way with:
 
 ```js
    angular.inherit( "ChildService" , ChildController ).from('BaseService');
@@ -67,7 +67,7 @@ If you need your controller to inherit from others controllers, you just have to
 
 ### Service Multi-Inheritance
 
-And for service multi-inheritance: 
+And for service multi-inheritance:
 
 ```js
    angular.expand( "ChildService" , ChildController ).from( [ 'Parent1Service' , 'Parent2Service' , 'Parent3Service' ]);
@@ -75,7 +75,7 @@ And for service multi-inheritance:
 
 ### Super method
 
-To be in a real inheritance perspective, we need to be able to call parent controller constructor i.e. the controller function. To do this, you do like this: 
+To be in a real inheritance perspective, we need to be able to call parent controller constructor i.e. the controller function. To do this, you do like this:
 
 ```js
     function ChildController( $scope ) {
@@ -89,15 +89,15 @@ In this way, you get a super-power: the one to instantiate "manually" the parent
 In order to have a clean way to override a controller / service method, you can use the parent method as followas:
 
 ```js
-  ChildController.prototype.someParentMethod = function() { 
+  ChildController.prototype.someParentMethod = function() {
     var parentValue = this.parent( 'ParentController' ).someParentMethod.apply( this , [] );
-    return "some overriden value of " + parentValue; 
+    return "some overriden value of " + parentValue;
   };
 ```
 
 ## Precautions
 
-Some exceptions may arise if you declare randomly your JS files in your index HTML file. The rule is to declare controllers and services based on their inheritance level. A parent controller must be declared before its children. 
+Some exceptions may arise if you declare randomly your JS files in your index HTML file. The rule is to declare controllers and services based on their inheritance level. A parent controller must be declared before its children.
 
 ```html
   <script type="text/javascript" src="<SRC_PATH>/parentController.js"> </script>
@@ -112,4 +112,3 @@ You can find examples of how Angular Inheritanc works in the ```example``` folde
 ## Release history
 
 0.0.1 Initial stable version
-
