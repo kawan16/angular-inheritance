@@ -59,7 +59,7 @@
                 extend(childConstructor, parentConstructor);
             }
             else {
-                throw 'The name' + parentName + ' does not refer to any constructor. Did you forget to define/include it ?';
+                throw 'The name ' + parentName + ' does not refer to any constructor. Did you forget to define/include it ?';
             }
         }
 
