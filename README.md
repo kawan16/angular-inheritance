@@ -7,7 +7,7 @@ Angular Inheritance is a library which proposes a third alternative by giving yo
 
 ## Installation
 
-To install Storycode, you just need to get the JS files in the ```dist``` folder. A bower version is coming soon. Then, put them in your ```lib``` folder and add in your index file:
+To install Angular Inheritance, you just need to get the JS files in the ```dist``` folder. A bower version is coming soon. Then, put them in your ```lib``` folder and add in your index file:
 
 ```html
   <script type="text/javascript" src="<LIB_PATH>/angular-inheritance.js"> </script>
@@ -19,7 +19,7 @@ Using Angular Inheritance means thinking Angular controller and service in a JS 
 
 ### Base Controller and Service
 
-Angular inheritance comes with base controller and service from which children inherits. Both controller and service comes with a the $log service as ```log``` attribute. The controller has its ```scope``` as attribute in more.
+Angular Inheritance comes with base controller and service from which children inherits. Both controller and service comes with a the $log service as ```log``` attribute. The controller has its ```scope``` as attribute in more.
 
 ```js
    function BaseController( $scope ) { /* Some code */}
@@ -107,7 +107,7 @@ Some exceptions may arise if you declare randomly your JS files in your index HT
 
 ## Examples
 
-You can find examples of how Angular Inheritanc works in the ```example``` folder. Particularly, we propose an abstract CRUDS model of controller and service upon which child controller can base. When your Web Application has to complete CRUDS operations on N types of object, the CRUDS example can inspire you to save time and code lines.
+You can find examples of how Angular Inheritance works in the ```example``` folder. Particularly, we propose an abstract CRUDS model of controller and service upon which child controller can base. When your Web Application has to complete CRUDS operations on N types of object, the CRUDS example can inspire you to save time and code lines.
 
 ## Release history
 
